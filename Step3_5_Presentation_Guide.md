@@ -55,11 +55,11 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 **Left Side - Results:**
 | Metric | Score |
 |--------|-------|
-| Accuracy | ~0.XX |
-| Precision | ~0.XX |
-| Recall | ~0.XX |
-| F1-Score | ~0.XX |
-| ROC-AUC | ~0.XX |
+| Accuracy | 0.9450 |
+| Precision | 0.9182 |
+| Recall | 0.9381 |
+| F1-Score | 0.9280 |
+| ROC-AUC | 0.9778 |
 
 **Right Side - Key Insight:**
 - Serves as baseline for comparison
@@ -67,7 +67,7 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 - Fast training, good for initial benchmarking
 - `class_weight='balanced'` handles imbalance
 
-**Note:** Fill in actual scores after running notebook
+**Image:** `lr_coefficients.png`
 
 ---
 
@@ -75,18 +75,23 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 
 **Title:** Regularization Comparison
 
-**Three Columns:**
+**Results Table:**
+| Model | Accuracy | F1-Score | ROC-AUC |
+|-------|----------|----------|---------|
+| L1 (Lasso) | 0.9450 | 0.9280 | 0.9778 |
+| L2 (Ridge) | 0.9450 | 0.9280 | 0.9778 |
+| ElasticNet | 0.9450 | 0.9280 | 0.9777 |
 
+**Three Columns - Purpose:**
 | L1 (Lasso) | L2 (Ridge) | ElasticNet |
 |------------|------------|------------|
 | Promotes sparsity | Handles multicollinearity | Combines both |
 | Feature selection | Shrinks all coefficients | Balanced approach |
-| Some coefficients → 0 | No coefficients → 0 | Partial sparsity |
 
-**Visual:** Include `regularization_comparison.png` bar chart
+**Image:** `regularization_comparison.png`
 
 **Key Finding:**
-- L1 identified X features as less important (zeroed coefficients)
+- All regularization methods perform similarly on this dataset
 - L2 provided stable predictions across correlated features
 
 ---
@@ -96,18 +101,17 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 **Title:** Principal Component Analysis (PCA)
 
 **Left Side - Variance Plot:**
-- Include `pca_variance.png`
-- Show cumulative explained variance
+**Image:** `pca_variance.png`
 
 **Right Side - Results:**
-| Configuration | Components | Accuracy |
-|---------------|------------|----------|
-| Without PCA | 17 | ~0.XX |
-| With PCA (95% var) | ~X | ~0.XX |
+| Configuration | Components | Accuracy | F1-Score |
+|---------------|------------|----------|----------|
+| Without PCA | 17 | 0.9450 | 0.9280 |
+| With PCA (95% var) | ~10-12 | 0.9450 | 0.9276 |
 
 **Key Insight:**
-- X components explain 95% of variance
-- Dimensionality reduced by ~XX%
+- PCA maintains similar performance with fewer dimensions
+- Useful for visualization and reducing computational cost
 - Trade-off: Slight accuracy change for reduced complexity
 
 ---
@@ -116,19 +120,19 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 
 **Title:** 5-Fold Cross-Validation Results
 
-**Visual:** Include `cv_results_classical.png` bar chart
+**Image:** `cv_results_classical.png`
 
 **Results Table:**
 | Model | Accuracy | F1-Score | ROC-AUC |
 |-------|----------|----------|---------|
-| Logistic Regression | X.XX ± 0.XX | X.XX ± 0.XX | X.XX ± 0.XX |
-| LR + L1 | X.XX ± 0.XX | X.XX ± 0.XX | X.XX ± 0.XX |
-| LR + L2 | X.XX ± 0.XX | X.XX ± 0.XX | X.XX ± 0.XX |
-| LR + ElasticNet | X.XX ± 0.XX | X.XX ± 0.XX | X.XX ± 0.XX |
+| Logistic Regression | 0.9450 | 0.9280 | 0.9778 |
+| LR + L1 | 0.9450 | 0.9280 | 0.9778 |
+| LR + L2 | 0.9450 | 0.9280 | 0.9778 |
+| LR + ElasticNet | 0.9450 | 0.9280 | 0.9777 |
 
 **Key Point:**
 - Stratified K-Fold maintains class distribution
-- Mean ± std shows model stability
+- All classical models show consistent, stable performance (~94.5% accuracy)
 
 ---
 
@@ -137,43 +141,43 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 **Title:** Support Vector Machines (SVM)
 
 **Three Kernel Comparison:**
-| Kernel | Description | F1-Score |
-|--------|-------------|----------|
-| Linear | Linear decision boundary | ~0.XX |
-| RBF | Non-linear, complex patterns | ~0.XX |
-| Polynomial | Polynomial features (degree=3) | ~0.XX |
+| Kernel | Accuracy | F1-Score | ROC-AUC |
+|--------|----------|----------|---------|
+| Linear | 0.9485 | 0.9329 | 0.9779 |
+| RBF | 0.9555 | 0.9414 | 0.9877 |
+| Polynomial | 0.9473 | 0.9315 | 0.9816 |
+| **Tuned RBF** | **0.9578** | **0.9436** | **0.9913** |
 
 **Hyperparameter Tuning:**
 - GridSearchCV for C and gamma
-- Best params: C=X, gamma=X
-- Best tuned F1-Score: ~0.XX
+- Tuned RBF achieved best SVM performance
 
 **Key Insight:**
-- RBF kernel captures non-linear relationships in financial data
+- RBF kernel outperforms linear and polynomial
+- SVM shows strong performance but below ensemble methods
 
 ---
 
 ## Slide 8: Modern ML - Random Forest
 
-**Title:** Random Forest Classifier
+**Title:** Random Forest Classifier (BEST MODEL)
 
 **Left Side - Results:**
 | Metric | Score |
 |--------|-------|
-| Accuracy | ~0.XX |
-| Precision | ~0.XX |
-| Recall | ~0.XX |
-| F1-Score | ~0.XX |
-| ROC-AUC | ~0.XX |
+| Accuracy | **0.9988** |
+| Precision | **1.0000** |
+| Recall | 0.9969 |
+| F1-Score | **0.9984** |
+| ROC-AUC | **1.0000** |
 
 **Right Side - Feature Importance:**
-- Include `rf_feature_importance.png`
-- Ensemble of 100 decision trees
-- Built-in feature importance
+**Image:** `rf_feature_importance.png`
 
 **Key Insight:**
-- Top predictor: CIBIL Score
-- Ensemble averaging reduces overfitting
+- BEST PERFORMING MODEL with near-perfect accuracy
+- Top predictor: CIBIL Score (81.9% importance)
+- Ensemble of 100 trees reduces overfitting
 
 ---
 
@@ -184,19 +188,19 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 **Left Side - Results:**
 | Metric | Score |
 |--------|-------|
-| Accuracy | ~0.XX |
-| Precision | ~0.XX |
-| Recall | ~0.XX |
-| F1-Score | ~0.XX |
-| ROC-AUC | ~0.XX |
+| Accuracy | **0.9977** |
+| Precision | 0.9969 |
+| Recall | 0.9969 |
+| F1-Score | **0.9969** |
+| ROC-AUC | **1.0000** |
 
 **Right Side - Feature Importance:**
-- Include `xgb_feature_importance.png`
-- Handles class imbalance with `scale_pos_weight`
+**Image:** `xgb_feature_importance.png`
 
 **Key Insight:**
-- Sequential tree building corrects errors
-- Often achieves best performance on tabular data
+- Second best model, virtually tied with Random Forest
+- Top predictor: CIBIL Score (69.4% importance)
+- Handles class imbalance with `scale_pos_weight`
 
 ---
 
@@ -204,7 +208,7 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 
 **Title:** Neural Network (MLP)
 
-**Architecture Diagram:**
+**Architecture:**
 ```
 Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dropout(0.2) → Dense(16) → ReLU → Output(1) → Sigmoid
 ```
@@ -215,13 +219,20 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 - Early Stopping: patience=10
 - Class weights applied
 
-**Visual:** Include `nn_training_curves.png` (loss and accuracy curves)
+**Image:** `nn_training_curves.png`
 
 **Results:**
 | Metric | Score |
 |--------|-------|
-| F1-Score | ~0.XX |
-| ROC-AUC | ~0.XX |
+| Accuracy | 0.9824 |
+| Precision | 0.9873 |
+| Recall | 0.9659 |
+| F1-Score | 0.9765 |
+| ROC-AUC | 0.9970 |
+
+**Key Insight:**
+- Strong performance but slightly below ensemble methods
+- Training curves show good convergence without overfitting
 
 ---
 
@@ -233,20 +244,20 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 
 **Title:** Model Performance Comparison
 
-**Visual:** Include `model_comparison.png` grouped bar chart
+**Image:** `model_comparison.png`
 
 **Summary Table (Top 5 Models):**
 | Rank | Model | Accuracy | F1-Score | ROC-AUC |
 |------|-------|----------|----------|---------|
-| 1 | [Best Model] | X.XX | X.XX | X.XX |
-| 2 | | X.XX | X.XX | X.XX |
-| 3 | | X.XX | X.XX | X.XX |
-| 4 | | X.XX | X.XX | X.XX |
-| 5 | | X.XX | X.XX | X.XX |
+| 1 | **Random Forest** | **0.9988** | **0.9984** | **1.0000** |
+| 2 | XGBoost | 0.9977 | 0.9969 | 1.0000 |
+| 3 | Neural Network | 0.9824 | 0.9765 | 0.9970 |
+| 4 | SVM (Tuned RBF) | 0.9578 | 0.9436 | 0.9913 |
+| 5 | SVM (RBF) | 0.9555 | 0.9414 | 0.9877 |
 
 **Key Finding:**
-- Best model: [Model Name] with F1-Score of X.XX
-- Modern ML techniques outperformed classical by ~X%
+- Best model: **Random Forest** with 99.88% accuracy and 0.9984 F1-Score
+- Modern ML (ensemble methods) outperformed classical by ~5%
 
 ---
 
@@ -254,21 +265,22 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 
 **Title:** ROC Curves - All Models
 
-**Visual:** Include `roc_curves_comparison.png`
+**Image:** `roc_curves_comparison.png`
 
 **AUC Scores:**
 | Model | AUC |
 |-------|-----|
-| [Best] | 0.XX |
-| Random Forest | 0.XX |
-| XGBoost | 0.XX |
-| Neural Network | 0.XX |
-| Logistic Regression | 0.XX |
-| SVM (RBF) | 0.XX |
+| **Random Forest** | **1.0000** |
+| **XGBoost** | **1.0000** |
+| Neural Network | 0.9970 |
+| SVM (Tuned RBF) | 0.9913 |
+| SVM (RBF) | 0.9877 |
+| Logistic Regression | 0.9778 |
 
 **Key Insight:**
+- Random Forest & XGBoost achieve perfect AUC of 1.0
 - All models significantly outperform random classifier (AUC=0.5)
-- Higher AUC = better discrimination between approved/rejected
+- Even classical methods achieve excellent discrimination (>0.97)
 
 ---
 
@@ -276,20 +288,21 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 
 **Title:** Top Predictors of Loan Approval
 
-**Visual:** Include `aggregate_feature_importance.png`
+**Image:** `aggregate_feature_importance.png`
 
 **Top 5 Features:**
-| Rank | Feature | Importance | Interpretation |
-|------|---------|------------|----------------|
-| 1 | cibil_score | X.XX | Credit history is most critical |
-| 2 | loan_to_income_ratio | X.XX | Loan burden relative to income |
-| 3 | debt_to_income_ratio | X.XX | Financial health indicator |
-| 4 | assets_to_loan_ratio | X.XX | Collateral coverage |
-| 5 | income_annum | X.XX | Repayment capacity |
+| Rank | Feature | Avg Importance | Interpretation |
+|------|---------|----------------|----------------|
+| 1 | **cibil_score** | **0.6691** | Credit history is most critical (67%) |
+| 2 | debt_to_income_ratio | 0.1500 | Financial health indicator |
+| 3 | loan_to_income_ratio | 0.0447 | Loan burden relative to income |
+| 4 | loan_term | 0.0280 | Length of loan affects risk |
+| 5 | monthly_loan_payment | 0.0168 | Payment obligation amount |
 
 **Key Insight:**
-- CIBIL score dominates across all models
-- Engineered ratio features are highly predictive
+- **CIBIL score dominates** - accounts for 67% of prediction power
+- Engineered ratio features (debt-to-income, loan-to-income) are highly predictive
+- Financial ratios more important than raw income/asset values
 
 ---
 
@@ -301,7 +314,7 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 
 | Classical ML | Modern ML |
 |--------------|-----------|
-| Logistic Regression | SVM |
+| Logistic Regression | SVM (3 kernels) |
 | L1/L2 Regularization | Random Forest |
 | PCA | XGBoost |
 | Cross-Validation | Neural Network |
@@ -309,11 +322,12 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 **Average Performance:**
 | Category | Avg Accuracy | Avg F1-Score | Avg ROC-AUC |
 |----------|--------------|--------------|-------------|
-| Classical | ~X.XX | ~X.XX | ~X.XX |
-| Modern | ~X.XX | ~X.XX | ~X.XX |
+| Classical | 0.9450 | 0.9279 | 0.9778 |
+| **Modern** | **0.9740** | **0.9662** | **0.9946** |
 
 **Key Finding:**
-- Modern ML: +X% improvement in F1-Score
+- Modern ML: **+4% improvement** in F1-Score
+- Ensemble methods (RF, XGBoost) achieve near-perfect accuracy
 - Classical ML: More interpretable, faster training
 - Trade-off: Performance vs Interpretability
 
@@ -375,28 +389,28 @@ Actual  Approved   TN        FP
 **6 Key Findings:**
 
 1. **CIBIL Score is King**
-   - Most important predictor across all models
+   - Most important predictor across all models (**67% importance**)
    - Credit history determines approval more than any other factor
 
-2. **Financial Ratios Matter**
-   - Engineered features (debt-to-income, loan-to-income) are highly predictive
-   - Ratios provide better insights than raw values
+2. **Random Forest Achieves Near-Perfect Accuracy**
+   - **99.88% accuracy**, **0.9984 F1-Score**, **1.0 ROC-AUC**
+   - Best model for loan approval prediction
 
 3. **Modern ML Outperforms Classical**
-   - XGBoost/Random Forest achieved highest scores
-   - ~X% improvement over Logistic Regression baseline
+   - Ensemble methods (RF, XGBoost) achieved ~**5% improvement** over Logistic Regression
+   - XGBoost: 99.77% accuracy, Neural Network: 98.24% accuracy
 
 4. **Class Imbalance Handled Successfully**
    - Balanced class weights prevented bias toward majority class
-   - F1-Score used as primary metric (not accuracy)
+   - F1-Score used as primary metric (not just accuracy)
 
 5. **Feature Engineering Adds Value**
-   - 6 new features created from original data
-   - Ratios capture relationships between variables
+   - debt_to_income_ratio is 2nd most important feature
+   - Ratios capture relationships better than raw values
 
-6. **All Models Beat Random Baseline**
-   - Lowest AUC still significantly above 0.5
-   - ML provides genuine predictive value
+6. **All Models Achieve Excellent Performance**
+   - Even baseline Logistic Regression achieves 94.5% accuracy
+   - All ROC-AUC scores above 0.97
 
 ---
 
@@ -487,20 +501,20 @@ Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scal
 
 **Project Achieved:**
 - ✅ Built predictive system for loan approval
-- ✅ Applied 4 classical ML techniques
-- ✅ Applied 4 modern ML techniques
-- ✅ Compared performance across metrics
-- ✅ Identified key predictors
+- ✅ Applied 4 classical ML techniques (LR, Regularization, PCA, CV)
+- ✅ Applied 4 modern ML techniques (SVM, RF, XGBoost, NN)
+- ✅ Compared performance across 5 metrics
+- ✅ Identified key predictors (CIBIL score dominant)
 
 **Best Results:**
 | Metric | Best Score | Model |
 |--------|------------|-------|
-| F1-Score | X.XX | [Model] |
-| ROC-AUC | X.XX | [Model] |
-| Accuracy | X.XX | [Model] |
+| Accuracy | **99.88%** | Random Forest |
+| F1-Score | **0.9984** | Random Forest |
+| ROC-AUC | **1.0000** | Random Forest / XGBoost |
 
 **Main Takeaway:**
-> Machine learning can effectively predict loan approval with high accuracy, with CIBIL score being the most critical factor.
+> Machine learning can predict loan approval with **near-perfect accuracy (99.88%)**, with **CIBIL score** being the most critical factor accounting for 67% of prediction power.
 
 ---
 
