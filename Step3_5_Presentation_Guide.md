@@ -15,8 +15,8 @@ This guide provides the slide-by-slide content for Steps 3, 4, and 5 of your pre
 
 **Content:**
 ```
-01 Classical ML          02 Modern ML           03 Training Setup      04 Results
-   Techniques               Techniques
+01 Training Setup       02 Classical ML        03 Modern ML          04 Results
+                           Techniques             Techniques
 ```
 
 **Key Points:**
