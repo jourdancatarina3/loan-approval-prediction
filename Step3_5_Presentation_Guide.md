@@ -393,31 +393,36 @@ Actual  Approved   531        0
 
 **Title:** Key Findings
 
-**6 Key Findings:**
+**Layout (Visual Summary Grid):**
+- 2x3 grid of "insight cards" with an icon + headline + 1 line metric.
+- Large numeric callouts on each card (use bold or color).
 
-1. **CIBIL Score is King**
-   - Most important predictor across all models (**67% importance**)
-   - Credit history determines approval more than any other factor
+**Card Placeholders (replace with your design):**
+1. **Credit Score Dominance**  
+   Metric: **67%** importance  
+   Visual: Gauge or score dial  
+2. **Best Model**  
+   Metric: **99.88%** accuracy / **0.9984** F1  
+   Visual: Trophy or crown icon  
+3. **Modern Beats Classical**  
+   Metric: **~5%** F1 lift  
+   Visual: Upward arrow chart  
+4. **Imbalance Mitigated**  
+   Metric: Balanced weights + F1 focus  
+   Visual: Balanced scale icon  
+5. **Feature Engineering Pays**  
+   Metric: debt-to-income = #2 feature  
+   Visual: Ratio bar icon  
+6. **Strong Baseline**  
+   Metric: **94.5%** LR accuracy / AUC > **0.97**  
+   Visual: Checkmark icon
 
-2. **Random Forest Achieves Near-Perfect Accuracy**
-   - **99.88% accuracy**, **0.9984 F1-Score**, **1.0 ROC-AUC**
-   - Best model for loan approval prediction
+**Design Notes:**
+- Keep a single sentence under each card (no bullets).
+- Use consistent icon style; use brand color for metrics.
 
-3. **Modern ML Outperforms Classical**
-   - Ensemble methods (RF, XGBoost) achieved ~**5% improvement** over Logistic Regression
-   - XGBoost: 99.77% accuracy, Neural Network: 98.24% accuracy
-
-4. **Class Imbalance Handled Successfully**
-   - Balanced class weights prevented bias toward majority class
-   - F1-Score used as primary metric (not just accuracy)
-
-5. **Feature Engineering Adds Value**
-   - debt_to_income_ratio is 2nd most important feature
-   - Ratios capture relationships better than raw values
-
-6. **All Models Achieve Excellent Performance**
-   - Even baseline Logistic Regression achieves 94.5% accuracy
-   - All ROC-AUC scores above 0.97
+**Speaker Script (Slide 17):**
+“Here’s the headline story in six quick insights. Credit score dominates the decision process, so it’s the single most influential feature in the model. Random Forest delivers near‑perfect performance, which is why it’s our best model. Modern techniques provide a clear lift over classical baselines, showing the value of ensembles and non‑linear models. We also handled class imbalance carefully, so the results are reliable across both approval and rejection classes. Feature engineering adds real value by capturing ratios that reflect financial stress. And even the baseline model performs strongly, which confirms the dataset is highly predictive.”
 
 ---
 
@@ -447,27 +452,60 @@ Actual  Approved   531        0
    - Use model as decision support, not replacement
    - Review borderline cases manually
 
+**Speaker Script (Slide 18):**
+“These recommendations turn the model into practice. Start with credit score as the primary screen, then apply financial ratios to assess affordability. Use ensemble models for the decision, but keep human review for borderline cases. Finally, retrain on a regular schedule to handle economic changes.”
+
 ---
 
 ## Slide 19: Technical Pipeline Summary
 
 **Title:** Complete ML Pipeline
 
-**Pipeline Flow Diagram:**
+**Pipeline Diagram (use as slide diagram):**
 ```
-Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scaling → Model Training → Evaluation → Deployment
-    ↓            ↓               ↓                    ↓              ↓            ↓              ↓
- 4,269 rows  Clean data    +6 features          80/20 split   StandardScaler  8+ models    Best model
- 13 cols     No missing    17 total features    Stratified                    Compared     selected
+[Raw CSV]
+  4,269 x 13
+     |
+     v
+[Data Quality + IQR Capping]
+  missing/dupes check
+     |
+     v
+[Label Encoding]
+  education / self_employed / target
+     |
+     v
+[Feature Engineering]
+  +6 ratio features
+     |
+     v
+[Feature Set: 17]
+  drop loan_id + original categoricals
+     |
+     v
+[Split 80/20 + Stratify]
+     |
+     v
+[StandardScaler]
+  fit train / transform test
+     |
+     v
+[Model Training]
+  Classical + Modern (8+ models)
+  class_weight + scale_pos_weight
+     |
+     v
+[Evaluation + Artifacts]
+  F1 / AUC / ROC / feature importance
+  model_results.csv + plots
 ```
 
-**Techniques Applied:**
-| Category | Techniques |
-|----------|------------|
-| Preprocessing | IQR outlier capping, Label encoding |
-| Classical ML | Logistic Regression, L1/L2/ElasticNet, PCA, Cross-validation |
-| Modern ML | SVM (3 kernels), Random Forest, XGBoost, Neural Network |
-| Evaluation | Accuracy, Precision, Recall, F1-Score, ROC-AUC |
+**Diagram Notes:**
+- Keep this as a single vertical flow with small icons per stage.
+- Use short labels; keep details in speaker notes.
+
+**Speaker Script (Slide 19):**
+“This is the exact pipeline implemented in the notebooks. We start with the raw dataset, check quality, cap outliers with IQR, and encode the categorical fields. We then engineer six ratio-based features and build a 17‑feature modeling set. The data is split 80/20 with stratification and scaled using StandardScaler. We train classical and modern models, including tuned SVM and Random Forest, plus XGBoost and a neural network. Finally, we evaluate with F1 and ROC‑AUC, generate ROC curves and feature importance, and export the results and plots used in the slides.”
 
 ---
 
@@ -500,6 +538,9 @@ Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scal
 6. ✅ **This Presentation**
    - Complete methodology and results
 
+**Speaker Script (Slide 20):**
+“These are the outputs you can verify: cleaned data, two notebooks, model results, feature importance files, and the final slides. Everything needed to reproduce the workflow is included.”
+
 ---
 
 ## Slide 21: Conclusion
@@ -522,6 +563,9 @@ Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scal
 
 **Main Takeaway:**
 > Machine learning can predict loan approval with **near-perfect accuracy (99.88%)**, with **CIBIL score** being the most critical factor accounting for 67% of prediction power.
+
+**Speaker Script (Slide 21):**
+“In summary, we built a complete pipeline and achieved near‑perfect performance. Random Forest leads across accuracy, F1, and AUC, and the key driver is credit history. The results show this approach is both accurate and practical for decision support.”
 
 ---
 
@@ -550,6 +594,9 @@ Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scal
    - LIME for local interpretability
    - Model cards for documentation
 
+**Speaker Script (Slide 22):**
+“Next steps are straightforward: expand data, test advanced models, deploy the system, and improve explainability. These improvements make the solution more robust and easier to adopt.”
+
 ---
 
 ## Slide 23: Q&A
@@ -557,15 +604,19 @@ Raw Data → Preprocessing → Feature Engineering → Train/Test Split → Scal
 **Title:** Questions & Discussion
 
 **Contact:**
-- [Your Name/Team]
-- [Email/GitHub]
+- Team / Presenter name
+- Email
+- Repo link
 
 **Resources:**
 - Dataset: Kaggle Loan Approval Prediction
-- Code: [Repository Link]
+- Code: Project repository
 - Documentation: Project notebooks
 
 **Thank You!**
+
+**Speaker Script (Slide 23):**
+“That’s the end of the presentation. We’re happy to answer questions and share any details about the data, models, or results. Thank you.”
 
 ---
 
