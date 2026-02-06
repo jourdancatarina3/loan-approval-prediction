@@ -335,27 +335,34 @@ Input (17) → Dense(64) → ReLU → Dropout(0.3) → Dense(32) → ReLU → Dr
 
 ## Slide 15: Best Model Deep Dive
 
-**Title:** Best Model: [Model Name]
+**Title:** Best Model: Random Forest
 
 **Why This Model?**
-1. Highest F1-Score: X.XX
-2. Best ROC-AUC: X.XX
-3. Balanced precision and recall
-4. Robust cross-validation performance
+1. Highest F1-Score: **0.9984**
+2. Best ROC-AUC: **1.0000** (Perfect discrimination)
+3. Balanced precision and recall (Precision: 1.0000, Recall: 0.9969)
+4. Near-perfect accuracy: **99.88%**
+5. Only 1 misclassification out of 854 test samples
 
 **Confusion Matrix:**
 ```
               Predicted
               Approved  Rejected
-Actual  Approved   TN        FP
-        Rejected   FN        TP
+Actual  Approved   531        0
+        Rejected     1      322
 ```
 
 **Classification Report:**
 | Class | Precision | Recall | F1-Score |
 |-------|-----------|--------|----------|
-| Approved | X.XX | X.XX | X.XX |
-| Rejected | X.XX | X.XX | X.XX |
+| Approved | 0.9981 | 1.0000 | 0.9990 |
+| Rejected | 1.0000 | 0.9969 | 0.9984 |
+
+**Key Insight:**
+- Random Forest achieved near-perfect performance with only 1 false negative
+- Perfect precision for "Rejected" class (no false positives)
+- 100% recall for "Approved" class (no false negatives)
+- Ensemble of 100 decision trees provides robust predictions
 
 ---
 
